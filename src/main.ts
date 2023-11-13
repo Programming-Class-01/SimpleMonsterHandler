@@ -54,12 +54,12 @@ function getCreatureByID(id: number, creatureMap: Map<Number, ICreature>): Resul
 async function createCreature(request: Express.Request, response: Express.Response): Promise<void> {
     const incomingName = request.query.name;
     const incomingType = request.query.type;
-    if (!incomingName || typeof incomingName !== 'string') {
+    if (typeof incomingName !== 'string' && incomingName !== undefined) {
         response.sendStatus(400);
         console.log(`No name provided or invalid name`);
         return;
     }
-    if (typeof incomingType !== 'string') {
+    if (typeof incomingType !== 'string' && incomingType !== undefined) {
         response.sendStatus(400);
         console.log(`Invalid type provided`);
         return;
