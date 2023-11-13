@@ -30,13 +30,10 @@ app.listen(port, () => {
 
 const serverTickEmitter = new EventEmitter()
 
-setInterval(tickEvent, 1000)
-
-// TODO: replace this with an anonymous function.
-function tickEvent(): void {
-    serverTickEmitter.emit('tick')
+setInterval(() => {
+    serverTickEmitter.emit(`tick`)
     console.log("this is the server tickrate: 1000 ms")
-}
+}, 1000)
 
 serverTickEmitter.on('tick', eventHandler)
 
@@ -102,9 +99,9 @@ function generateCreature(creatureMap: Map<Number, ICreature>, name?: string, ty
             fullness: 100,
             satiation: 100
         },
-        hungerHandler: () => {console.log("this is the creature.")}
+        hungerHandler: abstractDefaultHungerHandler,
     }
-    serverTickEmitter.on('tick', newCreature.hungerHandler)
+    serverTickEmitter.on('tick', newCreature.hungerHandler.bind(newCreature))
     if (creatureMap) {
         creatureMap.set(newCreature.id, newCreature);
     }
@@ -140,10 +137,10 @@ function getRandomName(): string {
         "Steve Bob Joe Bobby",
         "Steve Joe Bob Bobby",
         "Steve Bobby Joe Bob"];
-        const num = getRandomIntInclusive(names.length).unwrap();
-        const name = names[num];
-        if (name === undefined) process.exit(1);
-        return name;
+    const num = getRandomIntInclusive(names.length).unwrap();
+    const name = names[num];
+    if (name === undefined) process.exit(1);
+    return name;
 }
 
 function getRandomType(): string {
@@ -178,4 +175,16 @@ function getRandomType(): string {
     if (species === undefined) process.exit(1);
     return species.speciesName;
 
+}
+
+//this is a case for this.
+function abstractDefaultHungerHandler(this: ICreature) {
+    console.log(this.hunger)
+    if (this.hunger.satiation > 0) {
+        this.hunger.satiation--
+        return
+    }
+    if (this.hunger.fullness > 0) {
+        this.hunger.fullness--
+    }
 }
