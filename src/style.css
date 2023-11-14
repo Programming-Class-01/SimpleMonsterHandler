@@ -1,0 +1,89 @@
+:root {
+    --text: #050406;
+    --background: #edebef;
+    --primary: #5b5248;
+    --secondary: #e1dde4;
+    --accent: #6c897b;
+  }
+  
+  body {
+    background-color: var(--background);
+  }
+  
+  .header {
+    background-color: var(--accent);
+    color: var(--text);
+    text-align: center;
+    width: 779px;
+  }
+  
+  .box {
+    background-color: var(--primary);
+    border: 15px solid var(--accent);
+    text-align: center;
+    width: 750px;
+  }
+  
+  .button {
+      background-color: var(--secondary);
+      border: none;
+      color: var(--text);
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+  }
+  
+  .button:hover {
+    background-color: var(--accent);
+    color: var(text);
+  }
+  
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  input[type=submit] {
+    width: 100%;
+    background-color: var(--secondary);
+    color: var(--text);
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+    background-color: var(--accent);
+  }
+  
+  table {
+    background-color: var(--accent);
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  td, th {
+    border: 1px solid var(--accent);
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: var(--secondary);
+  }
+  
+  div {
+    width: 300px;
+    padding: 50px;
+  }
+  
