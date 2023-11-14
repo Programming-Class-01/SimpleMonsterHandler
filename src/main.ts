@@ -1,6 +1,7 @@
 import Express from 'express'
 import { ICreature, ISpecies } from './interfaces.js';
 import { Result, Ok, Err } from "ts-results-es";
+import { EventEmitter } from 'node:events';
 const app = Express();
 
 const port = 8080;
@@ -24,7 +25,22 @@ app.get("/api/createCreature", createCreature);
 
 app.listen(port, () => {
     console.log(`Server started on port: http://localhost:${port}`);
+    console.log(`generate new creature at: http://localhost:${port}/api/createCreature`)
 })
+
+const serverTickEmitter = new EventEmitter()
+
+setInterval(() => {
+    serverTickEmitter.emit(`tick`)
+    console.log("this is the server tickrate: 1000 ms")
+}, 1000)
+
+serverTickEmitter.on('tick', eventHandler)
+
+function eventHandler(): void {
+    console.log(serverTickEmitter.listeners('tick'))
+    console.log("this is the handler")
+}
 
 function getCreature(request: Express.Request, response: Express.Response): void {
     const incomingID = request.query.id;
@@ -56,7 +72,7 @@ async function createCreature(request: Express.Request, response: Express.Respon
     const incomingType = request.query.type;
     if (typeof incomingName !== 'string' && incomingName !== undefined) {
         response.sendStatus(400);
-        console.log(`No name provided or invalid name`);
+        console.log(`Incoming name must be a string: ${incomingName}`);
         return;
     }
     if (typeof incomingType !== 'string' && incomingType !== undefined) {
@@ -67,7 +83,7 @@ async function createCreature(request: Express.Request, response: Express.Respon
     const creature = generateCreature(globalCreatureMap, incomingName, incomingType);
     if (creature.isErr()) {
         response.sendStatus(400);
-        console.log(creature.error.message);
+        console.log(`this is the creature that errored: ${creature.error.message}`);
         return;
     }
     response.setHeader("Content-Type", "application/json");
@@ -82,8 +98,10 @@ function generateCreature(creatureMap: Map<Number, ICreature>, name?: string, ty
         hunger: {
             fullness: 100,
             satiation: 100
-        }
+        },
+        hungerHandler: abstractDefaultHungerHandler,
     }
+    serverTickEmitter.on('tick', newCreature.hungerHandler.bind(newCreature))
     if (creatureMap) {
         creatureMap.set(newCreature.id, newCreature);
     }
@@ -119,10 +137,10 @@ function getRandomName(): string {
         "Steve Bob Joe Bobby",
         "Steve Joe Bob Bobby",
         "Steve Bobby Joe Bob"];
-        const num = getRandomIntInclusive(names.length).unwrap();
-        const name = names[num];
-        if (name === undefined) process.exit(1);
-        return name;
+    const num = getRandomIntInclusive(names.length).unwrap();
+    const name = names[num];
+    if (name === undefined) process.exit(1);
+    return name;
 }
 
 function getRandomType(): string {
@@ -157,4 +175,16 @@ function getRandomType(): string {
     if (species === undefined) process.exit(1);
     return species.speciesName;
 
+}
+
+//this is a case for this.
+function abstractDefaultHungerHandler(this: ICreature) {
+    console.log(this.hunger)
+    if (this.hunger.satiation > 0) {
+        this.hunger.satiation--
+        return
+    }
+    if (this.hunger.fullness > 0) {
+        this.hunger.fullness--
+    }
 }

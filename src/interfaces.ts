@@ -6,6 +6,7 @@ interface ICreature {
         fullness: number,
         satiation: number
     }
+    hungerHandler: () => void,
 }
 
 interface ISpecies {
