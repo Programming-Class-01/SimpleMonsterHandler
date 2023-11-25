@@ -13,4 +13,13 @@ interface ISpecies {
     speciesName: string
 }
 
-export { ICreature, ISpecies }
+interface IFood{
+    foodName: string,
+
+}
+
+
+
+
+
+export { ICreature, ISpecies, IFood }

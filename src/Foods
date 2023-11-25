@@ -1,0 +1,45 @@
+//speciesName: `turtle` },
+        // { speciesName: `duck` },
+        // { speciesName: `turtleduck` },
+        // { speciesName: `boar` },
+        // { speciesName: `hound` },
+        // { speciesName: `boarhound` },
+        // { speciesName: `chicken` },
+        // { speciesName: `hawk` },
+        // { speciesName: `chickenhawk` },
+        // { speciesName: `squirrel` },
+        // { speciesName: `eel` },
+        // { speciesName: `squirreel` },
+        // { speciesName: `salamander` },
+        // { speciesName: `firebird` },
+        // { speciesName: `dragon` },
+        // { speciesName: `owl` },
+        // { speciesName: `bat` },
+        // { speciesName: `owlbat` },
+        // { speciesName: `rabbit` },
+        // { speciesName: `deer` },
+        // { speciesName: `rabbideer` },
+        // { speciesName: `cat` },
+        // { speciesName: `fox` },
+        // { speciesName: `catfox` },
+
+        import { ICreature, ISpecies,IFood } from './interfaces.js';
+
+        const foodArray: IFood[] = [
+            {foodName: 'Apple'},
+            {foodName: 'Orange'},
+            {foodName: 'Banana'},
+        ]
+
+// function feedCreature(): IFood {
+//     if (creature.satiation > 0) || (creature.favoriteFood !(foodArray.foodName))
+//     return console.log 'Your creature is not hungry.'
+
+//     if (creature.satiation > 0) &&
+// }
+        
+        // fav foods for each, 
+        // when sat is 0 fullness. is at max. 
+        //sat decreases, then fullness decreases. hunger increases as fullness decreases. cannot eat unless sat is 0 or fav food. 
+        //once given food, hunger to 0 and sat to max
+        

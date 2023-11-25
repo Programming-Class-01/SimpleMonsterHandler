@@ -143,33 +143,35 @@ function getRandomName(): string {
     return name;
 }
 
+const speciesArray: ISpecies[] = [
+    { speciesName: `turtle` },
+    { speciesName: `duck` },
+    { speciesName: `turtleduck` },
+    { speciesName: `boar` },
+    { speciesName: `hound` },
+    { speciesName: `boarhound` },
+    { speciesName: `chicken` },
+    { speciesName: `hawk` },
+    { speciesName: `chickenhawk` },
+    { speciesName: `squirrel` },
+    { speciesName: `eel` },
+    { speciesName: `squirreel` },
+    { speciesName: `salamander` },
+    { speciesName: `firebird` },
+    { speciesName: `dragon` },
+    { speciesName: `owl` },
+    { speciesName: `bat` },
+    { speciesName: `owlbat` },
+    { speciesName: `rabbit` },
+    { speciesName: `deer` },
+    { speciesName: `rabbideer` },
+    { speciesName: `cat` },
+    { speciesName: `fox` },
+    { speciesName: `catfox` },
+]
+
 function getRandomType(): string {
-    const speciesArray: ISpecies[] = [
-        { speciesName: `turtle` },
-        { speciesName: `duck` },
-        { speciesName: `turtleduck` },
-        { speciesName: `boar` },
-        { speciesName: `hound` },
-        { speciesName: `boarhound` },
-        { speciesName: `chicken` },
-        { speciesName: `hawk` },
-        { speciesName: `chickenhawk` },
-        { speciesName: `squirrel` },
-        { speciesName: `eel` },
-        { speciesName: `squirreel` },
-        { speciesName: `salamander` },
-        { speciesName: `firebird` },
-        { speciesName: `dragon` },
-        { speciesName: `owl` },
-        { speciesName: `bat` },
-        { speciesName: `owlbat` },
-        { speciesName: `rabbit` },
-        { speciesName: `deer` },
-        { speciesName: `rabbideer` },
-        { speciesName: `cat` },
-        { speciesName: `fox` },
-        { speciesName: `catfox` },
-    ]
+    
     const num = getRandomIntInclusive(speciesArray.length).unwrap();
     const species = speciesArray[num];
     if (species === undefined) process.exit(1);
