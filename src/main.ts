@@ -15,13 +15,19 @@ app.get("/", (_request, response) => {
     response.send(`Hey, I started a server on ${port}!`);
 })
 
-app.get("/api/port", (_resquest, response) => {
+app.get("/api/port", (_request, response) => {
     response.setHeader("Content-Type", "application/json");
     response.send(JSON.stringify(myResponse));
 })
 
+app.use(Express.static('html'))
+app.use(`/static`, Express.static(`html`))
+
 app.get("/api/getCreature", getCreature);
 app.get("/api/createCreature", createCreature);
+app.get("/api/CreatureDisplay", (_request, response) => {
+    response.send(`http://localhost:${port}/api/static/CreatureDisplay`)
+} )
 
 app.listen(port, () => {
     console.log(`Server started on port: http://localhost:${port}`);
@@ -89,6 +95,10 @@ async function createCreature(request: Express.Request, response: Express.Respon
     response.setHeader("Content-Type", "application/json");
     response.send(JSON.stringify(getCreatureByID(creature.value, globalCreatureMap)));
 }
+
+// const preElement = document.getElementById('json-data');
+// preElement.innerHTML = JSON.stringify(getCreatureByID);
+
 
 function generateCreature(creatureMap: Map<Number, ICreature>, name?: string, type?: string): Result<number, Error> {
     const newCreature: ICreature = {
@@ -188,3 +198,13 @@ function abstractDefaultHungerHandler(this: ICreature) {
         this.hunger.fullness--
     }
 }
+
+// async function displayCreature(id : number): Promise <ICreature> {
+//     console.log(id)
+//     const url = `http://localhost:${port}/api/createCreature`
+//     const response = await fetch(url);
+//     const result: ICreature = await response.json();
+//     return {name: result.name, id: result.id, type: result.type, hunger: result.hunger, hungerHandler: result.hungerHandler};
+// }
+
+// console.log(await displayCreature)  
